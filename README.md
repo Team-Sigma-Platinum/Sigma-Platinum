@@ -1,1 +1,1 @@
-# Pok-mon-Sigma-Platinum-Wiki
+# Pokemon-Sigma-Platinum-Wiki
