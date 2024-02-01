@@ -1,0 +1,89 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!21 &2100000
+Material:
+  serializedVersion: 6
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_Name: hair
+  m_Shader: {fileID: 4800000, guid: 0000000deadbeef15deadf00d0000000, type: 2}
+  m_ShaderKeywords: _LIGHTING_HAIR
+  m_LightmapFlags: 4
+  m_EnableInstancingVariants: 0
+  m_DoubleSidedGI: 0
+  m_CustomRenderQueue: 2000
+  stringTagMap:
+  - RenderType: Opaque
+  disabledShaderPasses: []
+  m_SavedProperties:
+    serializedVersion: 3
+    m_TexEnvs:
+    - _BumpTex:
+        m_Texture: {fileID: 2800000, guid: 448a8c2b9cdf8594d91918733e3e8a52, type: 3}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    - _ComplexTex:
+        m_Texture: {fileID: 2800000, guid: 4cd547d9b7b1b354fa1d0a47dc89e2dc, type: 3}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    - _MainTex:
+        m_Texture: {fileID: 2800000, guid: bee50406764b1324e980b214d01bb32f, type: 3}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    - _MaskTex:
+        m_Texture: {fileID: 2800000, guid: 3418e4f7e9d09af43912e981373e62b7, type: 3}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    m_Floats:
+    - _AlphaClip: 0
+    - _AnisLevelH: 1
+    - _AnisLevelV: 1
+    - _AnisotropicLightingEnable: 0
+    - _BumpScale: 1
+    - _ColorIntensity: 1
+    - _Cutoff: 0.5
+    - _DstBlend: 0
+    - _EmissionColorIntensity: 0
+    - _EmissionOffTime: 0.2
+    - _EmissionOnTime: 0.2
+    - _EnvironmentMapEnable: 0
+    - _FlipZWrite: 0
+    - _FresnelFalloff: 2
+    - _FresnelPower: 3.14
+    - _JitterPosition: 2
+    - _JitterScale: 2
+    - _JitterTilingU: 2
+    - _JitterTilingV: 0.01
+    - _Lighting: 2
+    - _MaskShadowBlendWeight: 1
+    - _MaskShadowExponential: 4
+    - _Mode: 0
+    - _ReflectionBias: 0
+    - _Reflectivity: 0.2
+    - _RimBlendWeight: 0.3
+    - _RimPower: 8
+    - _RimScale: 0.25
+    - _RimStrength: 8
+    - _SpecularCosinePower: 135
+    - _SpecularIntensity: 0.75
+    - _SrcBlend: 1
+    - _StencilRef: 1
+    - _SubsurfaceBlendWeight: 1
+    - _SubsurfaceExponential: 1
+    - _SubsurfaceFalloff: 1.5
+    - _UseVertexTangent: 0
+    - _ZWrite: 1
+    m_Colors:
+    - _Color: {r: 1, g: 1, b: 1, a: 1}
+    - _EmissionColor: {r: 1, g: 1, b: 1, a: 0}
+    - _PrimaryColor: {r: 0.2, g: 0.25490198, b: 0.30588236, a: 1}
+    - _RimColor: {r: 1, g: 1, b: 1, a: 1}
+    - _RimColorShadow: {r: 0, g: 0, b: 0, a: 1}
+    - _SecondaryColor: {r: 1, g: 1, b: 1, a: 1}
+    - _ShootingLightColor: {r: 0.2, g: 0.15, b: 0.1, a: 1}
+    - _ShootingLightOffset: {r: 5, g: -5, b: 0, a: 1}
+    - _SkinColor: {r: 1, g: 1, b: 1, a: 0}
+    - _SpecularColor: {r: 0.5219745, g: 0.59789807, b: 0.745, a: 1}
+    - _SubsurfaceAdditionalColor: {r: 0, g: 0, b: 0, a: 1}
