@@ -1,0 +1,937 @@
+ev_c04_flag_change:
+_CALL ev_box_close_check
+_IFVAL_CALL TOWNMAP_GUIDE_SEQUENCE EQ 4400 ev_c04_guide_upd
+_FLAG_SET FV_C04_TANKEN_OJISAN
+_FLAG_SET FV_C04_BICYCLE_UNCLE
+_FLAG_SET FV_WALL_PUT2
+_OBJ_DEL C04_WALL04
+_OBJ_DEL C04_WALL05
+_OBJ_DEL C04_WALL06
+_IFVAL_CALL WK_SCENE_C08R0401 EQ 99 ev_c04_underground_set_flag_on
+cmd_-1
+_IFVAL_CALL WK_SCENE_C08R0401 EQ 99 ev_c04_underground_set_flag_on
+_IFVAL_CALL WK_SCENE_C08R0401 EQ 100 ev_c04_underground_set_flag_on
+_IFVAL_CALL WK_SCENE_C04R0101 EQ 1 ev_c04_bicycle_uncle_set_flag_on
+_IFVAL_CALL WK_SCENE_C04_STOPPER_02 EQ 1 ev_c04_stopperblock_set
+_ITEM_CHK 450 1 LOCALWORK0
+_IFVAL_JUMP LOCALWORK0 EQ 0 ev_c04_woman1a_stopper_flag_not
+_ITEM_CHK 428 1 LOCALWORK0
+_IFVAL_JUMP LOCALWORK0 EQ 0 ev_c04_woman1a_stopper_flag_set
+_FLAG_RESET FV_WALL_PUT
+_OBJ_DEL C04_WALL01
+_OBJ_DEL C04_WALL02
+_OBJ_DEL C04_WALL03
+_END
+
+ev_c04_guide_upd:
+_LDVAL TOWNMAP_GUIDE_SEQUENCE 4500
+_RET
+
+ev_c04_woman1a_stopper_flag_not:
+_LDVAL WK_SCENE_C04_STOPPER 1
+_FLAG_SET FV_WALL_PUT
+_OBJ_DEL C04_WALL01
+_OBJ_DEL C04_WALL02
+_OBJ_DEL C04_WALL03
+_END
+
+ev_c04_woman1a_stopper_flag_set:
+_LDVAL WK_SCENE_C04_STOPPER 0
+_FLAG_RESET FV_WALL_PUT
+_OBJ_ADD C04_WALL01
+_OBJ_ADD C04_WALL02
+_OBJ_ADD C04_WALL03
+_END
+
+ev_c04_stopperblock_set:
+_FLAG_RESET FV_WALL_PUT2
+_OBJ_ADD C04_WALL04
+_OBJ_ADD C04_WALL05
+_OBJ_ADD C04_WALL06
+_RET
+
+ev_c04_underground_set_flag_on:
+_FLAG_RESET FV_C04_TANKEN_OJISAN
+_OBJ_ADD C04_UNDERGROUND
+_RET
+
+ev_c04_bicycle_uncle_set_flag_on:
+_FLAG_RESET FV_C04_BICYCLE_UNCLE
+_OBJ_ADD C04_BICYCLE_UNCLE
+_RET
+
+ev_c04_man1:
+_EASY_OBJ_MSG dp_scenario2%0-msg_c04_man1_01
+_END
+
+ev_c04_woman1:
+_TALK_OBJ_START
+_IF_FLAGON_JUMP FE_C04R0204_WIN ev_c04_woman1_02
+_TALKMSG dp_scenario2%0-msg_c04_woman1_01
+_LAST_KEYWAIT
+_TALK_CLOSE
+_TALK_OBJ_END
+_END
+
+ev_c04_woman1_02:
+_TALKMSG dp_scenario2%0-msg_c04_woman1_02
+_LAST_KEYWAIT
+_TALK_CLOSE
+_TALK_OBJ_END
+_END
+
+ev_c04_boy3:
+_TALK_OBJ_START
+_IF_FLAGON_JUMP FE_C04R0204_WIN ev_c04_boy3_02
+_TALKMSG dp_scenario2%0-msg_c04_boy3_01
+_LAST_KEYWAIT
+_TALK_CLOSE
+_TALK_OBJ_END
+_END
+
+ev_c04_boy3_02:
+_TALKMSG dp_scenario2%0-msg_c04_boy3_02
+_LAST_KEYWAIT
+_TALK_CLOSE
+_TALK_OBJ_END
+_END
+
+ev_c04_sign1:
+_EVENT_START
+_IF_FLAGOFF_JUMP SYS_FLAG_WILDCARD_000 ev_c01_sign1_01
+_EVENT_CAMERA_INDEX 331
+_EASY_BOARD_MSG dp_scenario2%0-msg_c04_sign1_01 BOARD_TYPE_TOWN 0
+_EVENT_CAMERA_INDEX 111
+_EVENT_CAMERA_END_WAIT
+_EVENT_END
+_END
+
+ev_c04_sign1_2:
+_EASY_BOARD_MSG dp_scenario2%0-msg_c04_sign1_01 BOARD_TYPE_TOWN 0
+_END
+
+ev_c04_sign2:
+_EASY_INFOBOARD_MSG dp_scenario2%0-msg_c04_sign2_01 BOARD_TYPE_INFO 0
+_END
+
+ev_c04_sign3:
+_EASY_BOARD_MSG dp_scenario2%0-msg_c04_sign3_01 BOARD_TYPE_POST 0
+_END
+
+ev_c04_sign4:
+_EASY_BOARD_MSG dp_scenario2%0-msg_c04_sign4_01 BOARD_TYPE_POST 0
+_END
+
+ev_c04_sign5:
+_EASY_BOARD_MSG dp_scenario2%0-msg_c04_sign5_01 BOARD_TYPE_POST 0
+_END
+
+ev_c04_sign6:
+_EASY_BOARD_MSG dp_scenario2%0-msg_c04_sign6_01 BOARD_TYPE_POST 0
+_END
+
+pos_c04_champ:
+_EVENT_START
+_BLACK_OUT SCR_WIPE_DIV 3
+_FADE_WAIT
+_OBJ_POS_CHANGE_WORLD HERO -303 7 523.5
+_SXY_DIR_CHANGE HERO 270
+_FLAG_RESET FV_C04_CHAMP
+_OBJ_ADD C04_CHAMP
+_OBJ_POS_CHANGE_WORLD C04_CHAMP -310 7 523.5
+_SXY_DIR_CHANGE C04_CHAMP 90
+_EVENT_CAMERA_INDEX 65
+_BLACK_IN SCR_WIPE_DIV 3
+_FADE_WAIT
+_JUMP common_c04_champion_01
+_END
+
+common_c04_champion_01:
+_OBJ_ANIME C04_CHAMP anm_c04_champion_01
+_OBJ_ANIME_WAIT
+_OBJ_ANIME C04_CHAMP anm_c04_champion_01_g
+_OBJ_ANIME_WAIT
+_OBJ_POS_CHANGE_WORLD C04_CHAMP -307.5 7 523.5
+_EVENT_CAMERA_INDEX 66
+_OBJ_ANIME C04_CHAMP anm_c04_champion_01_02
+_OBJ_ANIME_WAIT
+_PLAYER_NAME 0
+_TALK_KEYWAIT dp_scenario2%0-msg_c04_chanpion_01_1
+_EVENT_CAMERA_INDEX 67
+_SET_FORCE_BLINK C04_CHAMP 1
+_TIME_WAIT 5 SCWK_ANSWER
+_SET_FORCE_BLINK C04_CHAMP 0
+_TALK_KEYWAIT dp_scenario2%0-msg_c04_chanpion_01_2
+_TALK_CLOSE
+_OBJ_ANIME C04_CHAMP anm_c04_champion_02
+_OBJ_ANIME_WAIT
+_EVENT_CAMERA_INDEX 68
+_SET_FORCE_BLINK C04_CHAMP 1
+_TALK_KEYWAIT dp_scenario2%0-msg_c04_chanpion_02_1
+_SET_FORCE_BLINK C04_CHAMP 0
+_TALK_KEYWAIT dp_scenario2%0-msg_c04_chanpion_02_2
+_SET_FORCE_BLINK C04_CHAMP 1
+_TIME_WAIT 5 SCWK_ANSWER
+_SET_FORCE_BLINK C04_CHAMP 0
+_TIME_WAIT 5 SCWK_ANSWER
+_OBJ_ANIME C04_CHAMP anm_c04_champion_02_01
+_OBJ_ANIME_WAIT
+_TALK_KEYWAIT dp_scenario2%0-msg_c04_chanpion_02_3
+_EVENT_CAMERA_INDEX 69
+_LDVAL SCWK_TEMP0 420
+_LDVAL SCWK_TEMP1 3
+_CHG_COMMON_SCR ev_item_event_keywait
+_TALK_KEYWAIT dp_scenario2%0-msg_c04_chanpion_03
+_TALK_CLOSE
+_EVENT_CAMERA_INDEX 70
+_PLAYER_POS_GET SCWK_TEMP0 SCWK_TEMP1
+_IFVAL_JUMP SCWK_TEMP1 EQ 523 pos_c04_champion_z11
+_IFVAL_JUMP SCWK_TEMP1 EQ 524 pos_c04_champion_z12
+_IFVAL_JUMP SCWK_TEMP1 EQ 525 pos_c04_champion_z13
+_END
+
+pos_c04_champion_z11:
+_OBJ_ANIME C04_CHAMP anm_c04_champion_11
+_OBJ_ANIME HERO anm_c04_player_11
+_OBJ_ANIME_WAIT
+_JUMP common_c04_champion_02
+_END
+
+pos_c04_champion_z12:
+_OBJ_ANIME C04_CHAMP anm_c04_champion_11
+_OBJ_ANIME HERO anm_c04_player_11
+_OBJ_ANIME_WAIT
+_JUMP common_c04_champion_02
+_END
+
+pos_c04_champion_z13:
+_OBJ_ANIME C04_CHAMP anm_c04_champion_13
+_OBJ_ANIME HERO anm_c04_player_13
+_OBJ_ANIME_WAIT
+_JUMP common_c04_champion_02
+_END
+
+common_c04_champion_02:
+_OBJ_DEL C04_CHAMP
+_LDVAL WK_SCENE_C04 1
+_FLAG_SET FE_HIDEN_01_GET
+_IFVAL_CALL TOWNMAP_GUIDE_SEQUENCE EQ 4500 ev_c04_champion_guide_upd
+_EVENT_END
+_END
+
+ev_c04_champion_guide_upd:
+_LDVAL TOWNMAP_GUIDE_SEQUENCE 4600
+_RET
+
+anm_c04_champion_01:
+AC_LEFT 1 8
+ACMD_END
+
+anm_c04_champion_01_g:
+AC_MARK_GYOE 1
+AC_WORLD_X 307 8
+ACMD_END
+
+anm_c04_champion_01_02:
+AC_LEFT 3 8
+ACMD_END
+
+anm_c04_champion_02:
+AC_DIR_R 8
+ACMD_END
+
+anm_c04_champion_02_01:
+AC_DIR_L 8
+ACMD_END
+
+anm_c04_champion_11:
+AC_DIR_D 8
+AC_DOWN 1 8
+AC_DIR_L 8
+AC_LEFT 5 8
+AC_DIR_D 8
+AC_DOWN 8 8
+ACMD_END
+
+anm_c04_champion_13:
+AC_DIR_U 8
+AC_UP 1 8
+AC_DIR_L 8
+AC_LEFT 5 8
+AC_DIR_D 8
+AC_DOWN 9 8
+ACMD_END
+
+anm_c04_player_11:
+AC_WAIT 2
+AC_DIR_D 8
+AC_WAIT 8
+AC_DIR_L 8
+ACMD_END
+
+anm_c04_player_13:
+AC_WAIT 2
+AC_DIR_U 8
+AC_WAIT 8
+AC_DIR_L 8
+ACMD_END
+
+ev_c04_gingam:
+_EASY_OBJ_MSG dp_scenario2%0-msg_c04_gingam_01
+_END
+
+ev_c04_gingam2:
+_EASY_OBJ_MSG dp_scenario2%0-msg_c04_gingam2_01
+_END
+
+ev_c04_gingam3:
+_EASY_OBJ_MSG dp_scenario2%0-msg_c04_gingam3_01
+_END
+
+ev_c04_woman3:
+_EASY_OBJ_MSG dp_scenario2%0-msg_c04_woman3_01
+_END
+
+ev_c04_oldman1:
+_EASY_OBJ_MSG dp_scenario2%0-msg_c04_oldman1_01
+_END
+
+ev_c04_babyboy1:
+_EASY_OBJ_MSG dp_scenario2%0-msg_c04_babyboy1_01
+_END
+
+ev_c04_statue1:
+_EVENT_START
+_EVENT_CAMERA_INDEX 244
+_EVENT_CAMERA_END_WAIT
+_PM_VERSION_GET SCWK_ANSWER
+_IFVAL_JUMP SCWK_ANSWER EQ 48 ev_c04_statue1_diamond
+_TALK_OBJ_START
+_TALKMSG dp_scenario2%0-msg_c04_statue_02_1
+_TALK_KEYWAIT dp_scenario2%0-msg_c04_statue_02_2
+_TALK_KEYWAIT dp_scenario2%0-msg_c04_statue_02_3
+_TALK_CLOSE
+_TALK_OBJ_END
+_EVENT_CAMERA_INDEX 245
+_EVENT_CAMERA_END_WAIT
+_EVENT_END
+_END
+
+ev_c04_statue1_diamond:
+_TALK_OBJ_START
+_TALKMSG dp_scenario2%0-msg_c04_statue_01_1
+_TALK_KEYWAIT dp_scenario2%0-msg_c04_statue_01_2
+_TALK_KEYWAIT dp_scenario2%0-msg_c04_statue_01_3
+_TALK_CLOSE
+_EVENT_CAMERA_INDEX 245
+_EVENT_CAMERA_END_WAIT
+_EVENT_START
+_END
+
+ev_c04_woman1a:
+_IFVAL_JUMP WK_SCENE_C04_STOPPER EQ 0 ev_c04_woman1a_stopper_occ
+_EASY_OBJ_MSG dp_scenario2%0-msg_c04_woman1a_03
+_END
+
+ev_c04_woman1a_stopper_occ:
+_EASY_OBJ_MSG dp_scenario2%0-msg_c04_woman1a_02
+_END
+
+ev_c04_woman1a_stopper:
+_EVENT_START
+_OBJ_ANIME HERO anm_c04_player_left
+_OBJ_ANIME_WAIT
+_PLAYER_POS_GET SCWK_TEMP0 SCWK_TEMP1
+_IFVAL_CALL SCWK_TEMP0 EQ 303 ev_c04_woman1a_stopper_x1
+_IFVAL_CALL SCWK_TEMP0 EQ 304 ev_c04_woman1a_stopper_x2
+_IFVAL_CALL SCWK_TEMP0 EQ 305 ev_c04_woman1a_stopper_x3
+_IFVAL_CALL SCWK_TEMP0 EQ 306 ev_c04_woman1a_stopper_x4
+_IFVAL_CALL SCWK_TEMP0 EQ 307 ev_c04_woman1a_stopper_x5
+_TALKMSG dp_scenario2%0-msg_c04_woman1a_01
+_TALK_CLOSE
+_IFVAL_CALL SCWK_TEMP0 EQ 303 ev_c04_woman1a_stopper_x1_return
+_IFVAL_CALL SCWK_TEMP0 EQ 304 ev_c04_woman1a_stopper_x2_return
+_IFVAL_CALL SCWK_TEMP0 EQ 305 ev_c04_woman1a_stopper_x3_return
+_IFVAL_CALL SCWK_TEMP0 EQ 306 ev_c04_woman1a_stopper_x4_return
+_IFVAL_CALL SCWK_TEMP0 EQ 307 ev_c04_woman1a_stopper_x5_return
+_OBJ_ANIME HERO anm_c04_player_back
+_OBJ_ANIME_WAIT
+_EVENT_END
+_END
+
+ev_c04_woman1a_stopper_x1:
+_OBJ_ANIME C04_WOMAN1A anm_c04_stopper_x0
+_OBJ_ANIME_WAIT
+_OBJ_ANIME C04_WOMAN1A anm_c04_stopper_x1
+_OBJ_ANIME_WAIT
+_RET
+
+ev_c04_woman1a_stopper_x2:
+_OBJ_ANIME C04_WOMAN1A anm_c04_stopper_x0
+_OBJ_ANIME_WAIT
+_OBJ_ANIME C04_WOMAN1A anm_c04_stopper_x2
+_OBJ_ANIME_WAIT
+_RET
+
+ev_c04_woman1a_stopper_x3:
+_OBJ_ANIME C04_WOMAN1A anm_c04_stopper_x0
+_OBJ_ANIME_WAIT
+_OBJ_ANIME C04_WOMAN1A anm_c04_stopper_x3
+_OBJ_ANIME_WAIT
+_RET
+
+ev_c04_woman1a_stopper_x4:
+_OBJ_ANIME C04_WOMAN1A anm_c04_stopper_x0
+_OBJ_ANIME_WAIT
+_OBJ_ANIME C04_WOMAN1A anm_c04_stopper_x4
+_OBJ_ANIME_WAIT
+_RET
+
+ev_c04_woman1a_stopper_x5:
+_OBJ_ANIME C04_WOMAN1A anm_c04_stopper_x0
+_OBJ_ANIME_WAIT
+_OBJ_ANIME C04_WOMAN1A anm_c04_stopper_x5
+_OBJ_ANIME_WAIT
+_RET
+
+ev_c04_woman1a_stopper_x1_return:
+_RET
+
+ev_c04_woman1a_stopper_x2_return:
+_OBJ_ANIME C04_WOMAN1A anm_c04_stopper_x2_return
+_OBJ_ANIME_WAIT
+_RET
+
+ev_c04_woman1a_stopper_x3_return:
+_OBJ_ANIME C04_WOMAN1A anm_c04_stopper_x3_return
+_OBJ_ANIME_WAIT
+_RET
+
+ev_c04_woman1a_stopper_x4_return:
+_OBJ_ANIME C04_WOMAN1A anm_c04_stopper_x4_return
+_OBJ_ANIME_WAIT
+_RET
+
+ev_c04_woman1a_stopper_x5_return:
+_OBJ_ANIME C04_WOMAN1A anm_c04_stopper_x5_return
+_OBJ_ANIME_WAIT
+_RET
+
+anm_c04_stopper_x0:
+AC_DIR_R 8
+ACMD_END
+
+anm_c04_stopper_x1:
+AC_MARK_GYOE 1
+ACMD_END
+
+anm_c04_stopper_x2:
+AC_MARK_GYOE 1
+AC_WORLD_X 303 8
+ACMD_END
+
+anm_c04_stopper_x3:
+AC_MARK_GYOE 1
+AC_WORLD_X 304 8
+ACMD_END
+
+anm_c04_stopper_x4:
+AC_MARK_GYOE 1
+AC_WORLD_X 305 8
+ACMD_END
+
+anm_c04_stopper_x5:
+AC_MARK_GYOE 1
+AC_WORLD_X 306 8
+ACMD_END
+
+anm_c04_stopper_x1_return:
+AC_DIR_R 8
+ACMD_END
+
+anm_c04_stopper_x2_return:
+AC_DIR_L 8
+AC_WORLD_X 302 8
+AC_DIR_R 8
+ACMD_END
+
+anm_c04_stopper_x3_return:
+AC_DIR_L 8
+AC_WORLD_X 302 8
+AC_DIR_R 8
+ACMD_END
+
+anm_c04_stopper_x4_return:
+AC_DIR_L 8
+AC_WORLD_X 302 8
+AC_DIR_R 8
+ACMD_END
+
+anm_c04_stopper_x5_return:
+AC_DIR_L 8
+AC_WORLD_X 302 8
+AC_DIR_R 8
+ACMD_END
+
+anm_c04_player_left:
+AC_DIR_L 8
+ACMD_END
+
+anm_c04_player_right:
+AC_DIR_R 8
+ACMD_END
+
+anm_c04_player_back:
+AC_DIR_U 8
+AC_UP 1 8
+ACMD_END
+
+ev_c04_stop_01:
+_TALK_OBJ_START
+_IF_FLAGOFF_JUMP FE_CYCLE_GET ev_c04_stop_03
+_IFVAL_JUMP WK_SCENE_R207 GE 1 ev_c04_stop_03
+_TALKMSG dp_scenario2%0-msg_c04_stop_02
+_LAST_KEYWAIT
+_TALK_CLOSE
+_OBJ_ANIME C04_STOP_01 anm_c04_stop_turn
+_OBJ_ANIME_WAIT
+_TALK_OBJ_END
+_END
+
+ev_c04_stop_03:
+_TALKMSG dp_scenario2%0-msg_c04_stop_03
+_LAST_KEYWAIT
+_TALK_CLOSE
+_OBJ_ANIME C04_STOP_01 anm_c04_stop_turn
+_OBJ_ANIME_WAIT
+_TALK_OBJ_END
+_END
+
+pos_c04_stop_01:
+_EVENT_START
+_PLAYER_POS_GET SCWK_TEMP0 SCWK_TEMP1
+_IFVAL_CALL SCWK_TEMP1 EQ 532 pos_c04_stop_z1
+_IFVAL_CALL SCWK_TEMP1 EQ 533 pos_c04_stop_z2
+_IFVAL_CALL SCWK_TEMP1 EQ 534 pos_c04_stop_z3
+_IFVAL_CALL SCWK_TEMP1 EQ 535 pos_c04_stop_z4
+_IFVAL_CALL SCWK_TEMP1 EQ 536 pos_c04_stop_z5
+_OBJ_ANIME HERO anm_c04_player_turn_u
+_OBJ_ANIME_WAIT
+_TALK_KEYWAIT dp_scenario2%0-msg_c04_stop_01
+_TALK_CLOSE
+_IFVAL_CALL SCWK_TEMP1 EQ 532 pos_c04_stop_back_z1
+_IFVAL_CALL SCWK_TEMP1 EQ 533 pos_c04_stop_back_z2
+_IFVAL_CALL SCWK_TEMP1 EQ 534 pos_c04_stop_back_z3
+_IFVAL_CALL SCWK_TEMP1 EQ 535 pos_c04_stop_back_z4
+_IFVAL_CALL SCWK_TEMP1 EQ 536 pos_c04_stop_back_z5
+_EVENT_END
+_END
+
+pos_c04_stop_z1:
+_OBJ_ANIME C04_STOP_01 anm_c04_stop_go_z0
+_OBJ_ANIME_WAIT
+_OBJ_ANIME C04_STOP_01 anm_c04_stop_go_z1
+_OBJ_ANIME_WAIT
+_RET
+
+pos_c04_stop_z2:
+_OBJ_ANIME C04_STOP_01 anm_c04_stop_go_z0
+_OBJ_ANIME_WAIT
+_OBJ_ANIME C04_STOP_01 anm_c04_stop_go_z2
+_OBJ_ANIME_WAIT
+_RET
+
+pos_c04_stop_z3:
+_OBJ_ANIME C04_STOP_01 anm_c04_stop_go_z0
+_OBJ_ANIME_WAIT
+_OBJ_ANIME C04_STOP_01 anm_c04_stop_go_z3
+_OBJ_ANIME_WAIT
+_RET
+
+pos_c04_stop_z4:
+_OBJ_ANIME C04_STOP_01 anm_c04_stop_go_z0
+_OBJ_ANIME_WAIT
+_OBJ_ANIME C04_STOP_01 anm_c04_stop_go_z4
+_OBJ_ANIME_WAIT
+_RET
+
+pos_c04_stop_z5:
+_OBJ_ANIME C04_STOP_01 anm_c04_stop_go_z0
+_OBJ_ANIME_WAIT
+_OBJ_ANIME C04_STOP_01 anm_c04_stop_go_z5
+_OBJ_ANIME_WAIT
+_RET
+
+pos_c04_stop_back_z1:
+_OBJ_ANIME C04_STOP_01 anm_c04_stop_back_z1
+_OBJ_ANIME_WAIT
+_OBJ_ANIME HERO anm_c04_player_back_01
+_OBJ_ANIME_WAIT
+_RET
+
+pos_c04_stop_back_z2:
+_OBJ_ANIME C04_STOP_01 anm_c04_stop_back_z2
+_OBJ_ANIME_WAIT
+_OBJ_ANIME HERO anm_c04_player_back_01
+_OBJ_ANIME_WAIT
+_RET
+
+pos_c04_stop_back_z3:
+_OBJ_ANIME C04_STOP_01 anm_c04_stop_back_z3
+_OBJ_ANIME_WAIT
+_OBJ_ANIME HERO anm_c04_player_back_01
+_OBJ_ANIME_WAIT
+_RET
+
+pos_c04_stop_back_z4:
+_OBJ_ANIME C04_STOP_01 anm_c04_stop_back_z4
+_OBJ_ANIME_WAIT
+_OBJ_ANIME HERO anm_c04_player_back_01
+_OBJ_ANIME_WAIT
+_RET
+
+pos_c04_stop_back_z5:
+_OBJ_ANIME C04_STOP_01 anm_c04_stop_back_z5
+_OBJ_ANIME_WAIT
+_OBJ_ANIME HERO anm_c04_player_back_01
+_OBJ_ANIME_WAIT
+_RET
+
+anm_c04_player_back_01:
+AC_DIR_R 8
+AC_RIGHT 1 8
+ACMD_END
+
+anm_c04_player_turn_u:
+AC_DIR_U 8
+ACMD_END
+
+anm_c04_stop_turn:
+AC_DIR_D 8
+ACMD_END
+
+anm_c04_stop_go_z0:
+AC_DIR_D 8
+ACMD_END
+
+anm_c04_stop_go_z1:
+AC_MARK_GYOE 1
+ACMD_END
+
+anm_c04_stop_go_z2:
+AC_MARK_GYOE 1
+AC_DOWN 1 8
+ACMD_END
+
+anm_c04_stop_go_z3:
+AC_MARK_GYOE 1
+AC_DOWN 2 8
+ACMD_END
+
+anm_c04_stop_go_z4:
+AC_MARK_GYOE 1
+AC_DOWN 3 8
+ACMD_END
+
+anm_c04_stop_go_z5:
+AC_MARK_GYOE 1
+AC_DOWN 4 8
+ACMD_END
+
+anm_c04_stop_back_z1:
+ACMD_END
+
+anm_c04_stop_back_z2:
+AC_DIR_U 8
+AC_UP 1 8
+AC_DIR_D 8
+ACMD_END
+
+anm_c04_stop_back_z3:
+AC_DIR_U 8
+AC_UP 2 8
+AC_DIR_D 8
+ACMD_END
+
+anm_c04_stop_back_z4:
+AC_DIR_U 8
+AC_UP 3 8
+AC_DIR_D 8
+ACMD_END
+
+anm_c04_stop_back_z5:
+AC_DIR_U 8
+AC_UP 4 8
+AC_DIR_D 8
+ACMD_END
+
+ev_c04_anahori:
+_EVENT_START
+_OBJ_ANIME HERO anm_c04_anahori_p_s01
+_OBJ_ANIME_WAIT
+_TALK_KEYWAIT dp_scenario2%18-msg_ug_mission_01_01_1
+_TALK_KEYWAIT dp_scenario2%18-msg_ug_mission_01_01_2
+_TALK_KEYWAIT dp_scenario2%18-msg_ug_mission_01_02
+_OBJ_ANIME HERO anm_c04_anahori_p_s02
+_OBJ_ANIME_WAIT
+_TALK_CLOSE
+_EVENT_END
+_AUTO_TANKEN_SET
+_AUTO_TANKEN_SET_WAIT
+_USE_TANKENSET 2 0
+_END
+
+anm_c04_anahori_p_s01:
+AC_WAIT 8
+AC_DIR_R 8
+ACMD_END
+
+anm_c04_anahori_p_s02:
+AC_DIR_D 8
+AC_WAIT 16
+ACMD_END
+
+ev_c04_anahori_b:
+_EVENT_START
+_TIME_WAIT 10 LOCALWORK0
+_OBJ_ANIME HERO anm_c04_anahori_p_s03
+_OBJ_ANIME_WAIT
+_TALK_KEYWAIT dp_scenario2%18-msg_ug_mission_01_03
+_ME_PLAY M_FI013
+_ADD_UG_ITEM 1 1 SCWK_ANSWER
+_UG_ITEM_NAME 0 1 1
+_TALK_KEYWAIT dp_scenario3%91-msg_goods_get_01
+_ADD_UG_ITEM 2 1 SCWK_ANSWER
+_UG_ITEM_NAME 0 2 1
+_TALK_KEYWAIT dp_scenario3%91-msg_goods_get_01
+_ADD_UG_ITEM 3 1 SCWK_ANSWER
+_UG_ITEM_NAME 0 3 1
+_TALK_KEYWAIT dp_scenario3%91-msg_goods_get_01
+_ME_WAIT
+_TALK_KEYWAIT dp_scenario2%18-msg_ug_mission_01_04
+_TALK_KEYWAIT dp_scenario2%18-msg_ug_mission_01_05
+_TALK_CLOSE
+_OBJ_ANIME C04_UNDERGROUND anm_c04_anahori_j_s04
+_OBJ_ANIME HERO anm_c04_anahori_p_s05
+_OBJ_ANIME_WAIT
+_SE_PLAY S_FI012
+_SET_DOOR_OBJ C04R0801_D01
+_HIT_DOOR_ANIME 0
+_OBJ_ANIME C04_UNDERGROUND anm_c04_anahori_j_s06
+_OBJ_ANIME_WAIT
+_HIT_DOOR_ANIME_WAIT
+_SE_PLAY S_FI013
+_SET_DOOR_OBJ C04R0801_D01
+_HIT_DOOR_ANIME 1
+_LDVAL WK_SCENE_C04_STOPPER 2
+_LDVAL WK_SCENE_C08R0401 1
+_FLAG_RESET FE_UG_MISSION_TALK
+_OBJ_DEL C04_UNDERGROUND
+_EVENT_END
+_END
+
+anm_c04_anahori_p_s03:
+AC_WAIT 8
+AC_DIR_R 8
+ACMD_END
+
+anm_c04_anahori_j_s04:
+AC_WAIT 4
+AC_LEFT 1 8
+ACMD_END
+
+anm_c04_anahori_p_s05:
+AC_DIR_L 4
+AC_LEFT 1 8
+AC_DIR_R 8
+ACMD_END
+
+anm_c04_anahori_j_s06:
+AC_DIR_U 4
+AC_UP 1 8
+AC_VANISH_ON
+ACMD_END
+
+ev_c04_byclce_raid:
+_EVENT_START
+_DOOR_FORCE_ANIME_END 0
+_OBJ_ANIME HERO anm_c04_byclce_raid_s01
+_OBJ_ANIME_WAIT
+_TALK_KEYWAIT dp_scenario2%4-msg_c04r0101_middlem_03
+_ADD_CUSTUM_WIN_LABEL dp_options%DP_options_890 1
+_ADD_CUSTUM_WIN_LABEL dp_options%DP_options_888 2
+_ADD_CUSTUM_WIN_LABEL dp_options%DP_options_891 3
+_ADD_CUSTUM_WIN_LABEL dp_options%DP_options_889 4
+_OPEN_CUSTUM_WIN SCWK_ANSWER 0
+_LDVAL SCWK_TEMP0 4
+_EVENT_CAMERA_INDEX 112
+_OBJ_ANIME HERO anm_c04_byclce_raid_s02
+_OBJ_ANIME_WAIT
+_SWITCH SCWK_ANSWER
+_CASE_JUMP 1 ev_c04_byclce_raid2_1
+_CASE_JUMP 2 ev_c04_byclce_raid2_2
+_CASE_JUMP 3 ev_c04_byclce_raid2_3
+_CASE_JUMP 4 ev_c04_byclce_raid2_4
+_END
+
+ev_c04_byclce_re_raid:
+_TALK_KEYWAIT dp_scenario2%4-msg_c04r0101_middlem_05
+_ADD_CUSTUM_WIN_LABEL dp_options%DP_options_890 1
+_ADD_CUSTUM_WIN_LABEL dp_options%DP_options_888 2
+_ADD_CUSTUM_WIN_LABEL dp_options%DP_options_891 3
+_ADD_CUSTUM_WIN_LABEL dp_options%DP_options_889 4
+_OPEN_CUSTUM_WIN SCWK_ANSWER 0
+_SWITCH SCWK_ANSWER
+_CASE_JUMP 1 ev_c04_byclce_raid2_1
+_CASE_JUMP 2 ev_c04_byclce_raid2_2
+_CASE_JUMP 3 ev_c04_byclce_raid2_3
+_CASE_JUMP 4 ev_c04_byclce_raid2_4
+_END
+
+ev_c04_byclce_raid2_1:
+_TALK_CLOSE
+_CHARA_LOOK_LOCK C04_BICYCLE_UNCLE HERO
+_IFVAL_JUMP SCWK_TEMP0 EQ 0 ev_c04_byclce_raid2_1_ok
+_BLACK_OUT SCR_WIPE_DIV 6
+_FADE_WAIT
+_TIME_WAIT 6 SCWK_ANSWER
+_LDVAL SCWK_TEMP0 0
+_BICYCLE_COLOR_SET SCWK_TEMP0
+_BICYCLE_REQ 1
+_TIME_WAIT 6 SCWK_ANSWER
+_BLACK_IN SCR_WIPE_DIV 6
+_FADE_WAIT
+_JUMP ev_c04_byclce_raid2_1_ok
+_JUMP ev_c04_byclce_raid2_1_ok
+
+ev_c04_byclce_raid2_1_ok:
+_TALK_KEYWAIT dp_scenario2%4-msg_c04r0101_middlem_04_blue
+_YES_NO_WIN SCWK_ANSWER
+_IFVAL_JUMP SCWK_ANSWER EQ 1 ev_c04_byclce_re_raid
+_TALK_KEYWAIT dp_scenario2%4-msg_c04r0101_middlem_06_blue
+_JUMP ev_c04_byclce_raid_buy
+_END
+
+ev_c04_byclce_raid2_2:
+_TALK_CLOSE
+_CHARA_LOOK_LOCK C04_BICYCLE_UNCLE HERO
+_IFVAL_JUMP SCWK_TEMP0 EQ 1 ev_c04_byclce_raid2_2_ok
+_BLACK_OUT SCR_WIPE_DIV 6
+_FADE_WAIT
+_TIME_WAIT 6 SCWK_ANSWER
+_LDVAL SCWK_TEMP0 1
+_BICYCLE_COLOR_SET SCWK_TEMP0
+_BICYCLE_REQ 1
+_TIME_WAIT 6 SCWK_ANSWER
+_BLACK_IN SCR_WIPE_DIV 6
+_FADE_WAIT
+_JUMP ev_c04_byclce_raid2_2_ok
+_JUMP ev_c04_byclce_raid2_2_ok
+
+ev_c04_byclce_raid2_2_ok:
+_TALK_KEYWAIT dp_scenario2%4-msg_c04r0101_middlem_04_red
+_YES_NO_WIN SCWK_ANSWER
+_IFVAL_JUMP SCWK_ANSWER EQ 1 ev_c04_byclce_re_raid
+_TALK_KEYWAIT dp_scenario2%4-msg_c04r0101_middlem_06_red
+_JUMP ev_c04_byclce_raid_buy
+_END
+
+ev_c04_byclce_raid2_3:
+_TALK_CLOSE
+_CHARA_LOOK_LOCK C04_BICYCLE_UNCLE HERO
+_IFVAL_JUMP SCWK_TEMP0 EQ 2 ev_c04_byclce_raid2_3_ok
+_BLACK_OUT SCR_WIPE_DIV 6
+_FADE_WAIT
+_TIME_WAIT 6 SCWK_ANSWER
+_LDVAL SCWK_TEMP0 2
+_BICYCLE_COLOR_SET SCWK_TEMP0
+_BICYCLE_REQ 1
+_TIME_WAIT 6 SCWK_ANSWER
+_BLACK_IN SCR_WIPE_DIV 6
+_FADE_WAIT
+_JUMP ev_c04_byclce_raid2_3_ok
+_JUMP ev_c04_byclce_raid2_3_ok
+
+ev_c04_byclce_raid2_3_ok:
+_TALK_KEYWAIT dp_scenario2%4-msg_c04r0101_middlem_04_yellow
+_YES_NO_WIN SCWK_ANSWER
+_IFVAL_JUMP SCWK_ANSWER EQ 1 ev_c04_byclce_re_raid
+_TALK_KEYWAIT dp_scenario2%4-msg_c04r0101_middlem_06_yellow
+_JUMP ev_c04_byclce_raid_buy
+_END
+
+ev_c04_byclce_raid2_4:
+_TALK_CLOSE
+_CHARA_LOOK_LOCK C04_BICYCLE_UNCLE HERO
+_IFVAL_JUMP SCWK_TEMP0 EQ 3 ev_c04_byclce_raid2_4_ok
+_BLACK_OUT SCR_WIPE_DIV 6
+_FADE_WAIT
+_TIME_WAIT 6 SCWK_ANSWER
+_LDVAL SCWK_TEMP0 3
+_BICYCLE_COLOR_SET SCWK_TEMP0
+_BICYCLE_REQ 1
+_TIME_WAIT 6 SCWK_ANSWER
+_BLACK_IN SCR_WIPE_DIV 6
+_FADE_WAIT
+_JUMP ev_c04_byclce_raid2_4_ok
+_JUMP ev_c04_byclce_raid2_4_ok
+
+ev_c04_byclce_raid2_4_ok:
+_TALK_KEYWAIT dp_scenario2%4-msg_c04r0101_middlem_04_green
+_YES_NO_WIN SCWK_ANSWER
+_IFVAL_JUMP SCWK_ANSWER EQ 1 ev_c04_byclce_re_raid
+_TALK_KEYWAIT dp_scenario2%4-msg_c04r0101_middlem_06_green
+_JUMP ev_c04_byclce_raid_buy
+_END
+
+ev_c04_byclce_raid_buy:
+_TALK_CLOSE
+_LDVAL SCWK_TEMP0 450
+_LDVAL SCWK_TEMP1 1
+_CHG_COMMON_SCR ev_item_event_keywait
+_TALK_KEYWAIT dp_scenario2%4-msg_c04r0101_middlem_02_1
+_TALK_KEYWAIT dp_scenario2%4-msg_c04r0101_middlem_02_2
+_TALK_CLOSE
+_EVENT_CAMERA_INDEX 113
+_CHARA_LOOK_RELEASE C04_BICYCLE_UNCLE
+_OBJ_ANIME C04_BICYCLE_UNCLE anm_c04_byclce_raid_s03
+_TIME_WAIT 12 SCWK_ANSWER
+_SE_PLAY S_FI014
+_SET_DOOR_OBJ C04R0101_D01
+_HIT_DOOR_ANIME 0
+_OBJ_ANIME_WAIT
+_SE_PLAY S_FI015
+_HIT_DOOR_ANIME 1
+_HIT_DOOR_ANIME_WAIT
+_EVENT_CAMERA_END_WAIT
+_EVENT_CAMERA_INDEX 114
+_EVENT_CAMERA_END_WAIT
+_BOUKENNOOTO_TIPS_OPEN 9 SCWK_ANSWER
+_BOUKENNOOTO_TIPS_WAIT
+_SET_WARP_ID 58
+_SET_TELEPORT_ID 54 0
+_LDVAL WK_SCENE_C04R0101 2
+_OBJ_DEL C04_BICYCLE_UNCLE
+_FLAG_RESET FV_C04R0101_MIDDLEM
+_ITEM_CHK 428 1 LOCALWORK0
+_IFVAL_JUMP LOCALWORK0 EQ 0 ev_c04_woman1a_stopper_flag_set
+_EVENT_END
+_END
+
+anm_c04_byclce_raid_s01:
+AC_WAIT 8
+AC_DOWN 1 8
+AC_DIR_R 8
+ACMD_END
+
+anm_c04_byclce_raid_s02:
+AC_DIR_D 4
+AC_DOWN 1 8
+ACMD_END
+
+anm_c04_byclce_raid_s03:
+AC_LEFT 1 8
+AC_DIR_U 4
+AC_UP 4 8
+AC_VANISH_ON
+ACMD_END
